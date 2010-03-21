@@ -27,6 +27,7 @@ namespace EmbeddedIronRuby
 
             ScriptEngine engine = IronRuby.Ruby.CreateEngine();
             ScriptScope scope = engine.CreateScope();
+            SetVariables(scope);
 
             string line;
             do
@@ -37,6 +38,11 @@ namespace EmbeddedIronRuby
             } while (line != "quit");
 
             ResetConsole();
+        }
+
+        private void SetVariables(ScriptScope scope)
+        {
+            scope.SetVariable("started", DateTime.Now);
         }
 
         private void ExecuteRuby(string line, ScriptEngine engine, ScriptScope scope)
