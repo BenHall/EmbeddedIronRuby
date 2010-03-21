@@ -1,0 +1,49 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using Microsoft.Scripting.Hosting;
+using Microsoft.Scripting;
+
+namespace EmbeddedIronRuby
+{
+    class Program
+    {
+        [STAThread]
+        static void Main(string[] args)
+        {
+            OutputHeader();
+            DLRHost host = new DLRHost();
+            host.Run();
+        }
+
+        private static void OutputHeader()
+        {
+            Console.WriteLine("Welcome to Embedded IronRuby Sample");
+            Console.WriteLine("Type ir to enter IronRuby");
+            Console.WriteLine("Type exit to quit the application");
+        }
+
+    }
+
+    public class DLRHost
+    {
+        public DLRHost()
+        {
+        
+        }
+
+
+        public void Run()
+        {
+        }
+     
+        private string GetLine(string lang)
+        {
+            Console.Write(lang + "> ");
+            string line = Console.ReadLine();
+            return line;
+        }
+        
+    }
+}
