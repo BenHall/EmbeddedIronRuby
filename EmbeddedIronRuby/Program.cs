@@ -7,7 +7,7 @@ namespace EmbeddedIronRuby
     class Program
     {
         [STAThread]
-        static void Main(string[] args)
+        static void Main()
         {
             OutputHeader();
             DLRHost host = new DLRHost();
@@ -31,11 +31,12 @@ namespace EmbeddedIronRuby
         {
             Engine = IronRuby.Ruby.CreateEngine();
             Scope = Engine.CreateScope();
-            ExecuteWPF();
+            //ExecuteWPF();
         }
 
         private void ExecuteWPF()
         {
+            Console.WriteLine("Referencing WPF");
             Execute("require 'mscorlib'");
             Execute("require 'PresentationFramework, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35'");
             Execute("require 'PresentationCore, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35'");
@@ -74,6 +75,7 @@ namespace EmbeddedIronRuby
             Console.Clear();
 
             Scope.SetVariable("c", new ConsoleWrapper());
+            Scope.SetVariable("ui", new UpdateUI());
 
             string code = GetLine("ir");
 
@@ -101,5 +103,37 @@ namespace EmbeddedIronRuby
                 Console.WriteLine("ERROR: " + ex.Message);
             }
         }
+    }
+
+    public class UpdateUI
+    {
+        public delegate void DataChangedEventHandler(object sender, DataChangedEventArgs e);
+        public event DataChangedEventHandler DataChanged;
+
+        public UpdateUI()
+        {
+            DataChanged += Updated;
+        }
+
+        void Updated(object sender, DataChangedEventArgs e)
+        {
+            Console.WriteLine("I've been called (This is C#) " + e.DataFromRuby);
+        }
+
+        public virtual void Updated(string data)
+        {
+            if (DataChanged != null)
+            {
+                var args = new DataChangedEventArgs();
+                args.DataFromRuby = data;
+                DataChanged(this, args);
+            }
+        }
+
+    }
+
+    public class DataChangedEventArgs : EventArgs
+    {
+        public string DataFromRuby { get; set; }
     }
 }
