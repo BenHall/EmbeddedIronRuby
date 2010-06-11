@@ -129,7 +129,6 @@ namespace EmbeddedIronRuby
                 DataChanged(this, args);
             }
         }
-
     }
 
     public class DataChangedEventArgs : EventArgs
