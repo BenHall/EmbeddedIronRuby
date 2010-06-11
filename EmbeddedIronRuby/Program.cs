@@ -1,6 +1,4 @@
 ﻿using System;
-using Microsoft.Scripting.Hosting;
-using Microsoft.Scripting;
 
 namespace EmbeddedIronRuby
 {
@@ -25,25 +23,9 @@ namespace EmbeddedIronRuby
 
     public class DLRHost
     {
-        ScriptEngine Engine;
-        ScriptScope Scope;
         public DLRHost()
         {
-            Engine = IronRuby.Ruby.CreateEngine();
-            Scope = Engine.CreateScope();
-            //ExecuteWPF();
-        }
 
-        private void ExecuteWPF()
-        {
-            Console.WriteLine("Referencing WPF");
-            Execute("require 'mscorlib'");
-            Execute("require 'PresentationFramework, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35'");
-            Execute("require 'PresentationCore, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35'");
-            
-            Execute("include System");
-            Execute("include System::Windows");
-            Execute("include System::Windows::Controls");
         }
 
         public void Run()
@@ -74,34 +56,10 @@ namespace EmbeddedIronRuby
             Console.ForegroundColor = ConsoleColor.Yellow;
             Console.Clear();
 
-            Scope.SetVariable("c", new ConsoleWrapper());
-            Scope.SetVariable("ui", new UpdateUI());
-
-            string code = GetLine("ir");
-
-            while (!code.Equals("exit") && !code.Equals(string.Empty))
-            {
-                Execute(code);
-                code = GetLine("ir");
-            }
-
             Console.ResetColor();
             Console.Clear();
         }
 
-        private void Execute(string code)
-        {
-            try
-            {
-                ScriptSource source = Engine.CreateScriptSourceFromString(code, SourceCodeKind.Statements);
-                object result = source.Execute(Scope);
-                if (result != null)
-                    Console.WriteLine(result);
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine("ERROR: " + ex.Message);
-            }
-        }
+
     }
 }

@@ -1,0 +1,27 @@
+<TemplatesExport family="Live Templates">
+  <Template uid="70b108a4-1473-4aec-914a-76199c845a11" shortcut="engine" description="" text="Engine = IronRuby.Ruby.CreateEngine();&#xD;&#xA;Scope = Engine.CreateScope();" reformat="True" shortenQualifiedReferences="True">
+    <Categories />
+    <Variables />
+    <CustomProperties />
+  </Template>
+  <Template uid="ad5000d5-ebff-4374-a1ba-ac63d6ac877a" shortcut="exec" description="" text="private void Execute(string code)&#xD;&#xA;{&#xD;&#xA;    try&#xD;&#xA;    {&#xD;&#xA;        ScriptSource source = Engine.CreateScriptSourceFromString(code, SourceCodeKind.Statements);&#xD;&#xA;        object result = source.Execute(Scope);&#xD;&#xA;        if (result != null)&#xD;&#xA;            Console.WriteLine(result);&#xD;&#xA;    }&#xD;&#xA;    catch (Exception ex)&#xD;&#xA;    {&#xD;&#xA;        Console.WriteLine(&quot;ERROR: &quot; + ex.Message);&#xD;&#xA;    }&#xD;&#xA;}" reformat="True" shortenQualifiedReferences="True">
+    <Categories />
+    <Variables />
+    <CustomProperties />
+  </Template>
+  <Template uid="d6a6c8cb-97c7-431b-974a-f48e08a52e8c" shortcut="ir" description="" text="string code = GetLine(&quot;ir&quot;);&#xD;&#xA;&#xD;&#xA;while (!code.Equals(&quot;exit&quot;) &amp;&amp; !code.Equals(string.Empty))&#xD;&#xA;{&#xD;&#xA;    Execute(code);&#xD;&#xA;    code = GetLine(&quot;ir&quot;);&#xD;&#xA;}" reformat="True" shortenQualifiedReferences="True">
+    <Categories />
+    <Variables />
+    <CustomProperties />
+  </Template>
+  <Template uid="046be692-ab17-4aa4-976a-55c19db4bcfd" shortcut="set" description="" text="Scope.SetVariable(&quot;c&quot;, new ConsoleWrapper());&#xD;&#xA;Scope.SetVariable(&quot;ui&quot;, new UpdateUI());" reformat="True" shortenQualifiedReferences="True">
+    <Categories />
+    <Variables />
+    <CustomProperties />
+  </Template>
+  <Template uid="0631ae7e-a836-4664-bcf7-f205373f5cc6" shortcut="wpf" description="" text="private void ExecuteWPF()&#xD;&#xA;{&#xD;&#xA;    Console.WriteLine(&quot;Referencing WPF&quot;);&#xD;&#xA;    Execute(&quot;require 'mscorlib'&quot;);&#xD;&#xA;    Execute(&quot;require 'PresentationFramework, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35'&quot;);&#xD;&#xA;    Execute(&quot;require 'PresentationCore, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35'&quot;);&#xD;&#xA;    &#xD;&#xA;    Execute(&quot;include System&quot;);&#xD;&#xA;    Execute(&quot;include System::Windows&quot;);&#xD;&#xA;    Execute(&quot;include System::Windows::Controls&quot;);&#xD;&#xA;}" reformat="True" shortenQualifiedReferences="True">
+    <Categories />
+    <Variables />
+    <CustomProperties />
+  </Template>
+</TemplatesExport>
